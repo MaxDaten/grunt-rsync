@@ -1,0 +1,39 @@
+{
+  "name": "grunt-rsync",
+  "description": "Copy files to a (remote) machine with rsync",
+  "version": "0.1.0",
+  "homepage": "https://github.com/maxdaten/grunt-rsync",
+  "author": {
+    "name": "Jan-Philip Loos",
+    "email": "maxdaten@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxdaten/grunt-rsync" 
+  },
+  "bugs": {
+    "url": "https://github.com/maxdaten/grunt-rsync/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/maxdaten/grunt-rsync/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/grunt-rsync",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "grunt": "~0.3.16"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.16",
+    "grunt-bump": "*",
+    "grunt-beautify": "*"
+  },
+  "keywords": ["gruntplugin", "rsync", "copy"]
+}
