@@ -37,21 +37,6 @@ module.exports = function (grunt) {
       }
     },
 
-    rsync: {
-      deploy: {
-        files: {
-          'a/b/c/': 'test/test-files/',
-          'a/': 'test/test-files/one.txt',
-          'a/b/': ['test/test-files/one.txt', 'test/test-files/ddd/xyz.txt']
-        },
-        options: {
-          host: "test.mygnia.de",
-          port: "22",
-          user: "jloos",
-          remoteBase: "~/grunt-rsync-test"
-        }
-      }
-    }
   });
 
   grunt.loadNpmTasks('grunt-beautify');
