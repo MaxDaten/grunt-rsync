@@ -1,17 +1,17 @@
-# grunt-scp
+# grunt-rsync
 
-Copy files to a (remote) machine running an SSH daemon.
+Copy files to a (remote) machine running an SSH daemon with 'rsync'.
 
 ## Getting Started
 
-*`scp` has to be installed on your system and be able to connect to the host without password (e.g. public key authentication)*
+*`rsync` has to be installed on the local and remote system. `rsync` must be able to connect to the host without password (e.g. public key authentication)*
 
-Install with: `npm install grunt-scp`
+Install with: `npm install grunt-rsyc`
 
 Inside your `grunt.js` file add :
 
 ``` javascript
-grunt.loadNpmTasks('grunt-scp');
+grunt.loadNpmTasks('grunt-rsync');
 ```
 
 and a task named `scp` (see Configuration)!

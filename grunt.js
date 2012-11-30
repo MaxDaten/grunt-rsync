@@ -37,14 +37,18 @@ module.exports = function (grunt) {
       }
     },
 
-    scp: {
+    rsync: {
       deploy: {
-        src: 'test/',
+        files: {
+          'a/b/c/': 'test/test-files/',
+          'a/': 'test/test-files/one.txt',
+          'a/b/': ['test/test-files/one.txt', 'test/test-files/ddd/xyz.txt']
+        },
         options: {
           host: "test.mygnia.de",
           port: "22",
           user: "jloos",
-          path: "~"
+          remoteBase: "~/grunt-rsync-test"
         }
       }
     }

@@ -1,4 +1,5 @@
-var grunt = require('grunt');
+var grunt = require('grunt'),
+    rsync = require('../tasks/rsync');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -23,10 +24,64 @@ var grunt = require('grunt');
 exports.rsync = {
   'one': function (test) {
     'use strict';
-    
+
     test.expect(1);
     // tests here
     test.equal(1, 1);
+    test.done();
+  },
+  'Helper#createFileMap with one flat file <string> (no map)': function (test) {
+    'use strict';
+    test.expect(1);
+
+    var files = 'a/b/c';
+    var fileMap = grunt.helper('createFileMap', files);
+
+    test.deepEqual(fileMap, {
+      '': 'a/b/c'
+    });
+    test.done();
+  },
+  'Helper#createFileMap-identity with one element map <string:string>': function (test) {
+    'use strict';
+    test.expect(1);
+
+    var files = {
+      'cde/f': 'a/b/c'
+    };
+    var fileMap = grunt.helper('createFileMap', files);
+
+    test.deepEqual(fileMap, {
+      'cde/f': 'a/b/c'
+    });
+    test.done();
+  },
+  'Helper#createFileMap-identity with one element map <string:[string]>': function (test) {
+    'use strict';
+    test.expect(1);
+
+    var files = {
+      'cde/f': ['a/b/c', 'e/**/*.txt']
+    };
+    var fileMap = grunt.helper('createFileMap', files);
+
+    test.deepEqual(fileMap, {
+      'cde/f': ['a/b/c', 'e/**/*.txt']
+    });
+    test.done();
+  },
+  'Helper#createFileMap-identity with multiple element map <string:[string]> | <string:string>': function (test) {
+    'use strict';
+    test.expect(1);
+
+    var files = {
+      'cde/f': ['a/b/c', 'e/**/*.txt'],
+      'ddd/': 'e/f',
+      'rrr/': ['hh/*.txt']
+    };
+    var fileMap = grunt.helper('createFileMap', files);
+
+    test.deepEqual(fileMap, files);
     test.done();
   }
 };
