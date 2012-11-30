@@ -20,8 +20,10 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-exports.scp = {
+exports.rsync = {
   'one': function (test) {
+    'use strict';
+    
     test.expect(1);
     // tests here
     test.equal(1, 1);

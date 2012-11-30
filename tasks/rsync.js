@@ -15,21 +15,21 @@ module.exports = function (grunt) {
 
   grunt.registerMultiTask('rsync', 'Copy files to a (remote) machine with rsync.', function () {
 
-    var done = this.async(),
-        exec = require('child_process').exec,
-        src  = this.file.src,
-        dest = this.file.dest,
+    var done                = this.async(),
+        exec                = require('child_process').exec,
+        src                 = this.file.src,
+        dest                = this.file.dest,
         // options
-        dry  = grunt.option('no-write'),
-        host = this.data.options.host || 'localhost',
-        user = this.data.options.user || 'getGitUser',
-        path = this.data.options.path || '~',
-        verbose = grunt.option('verbose'),
-        preserveTimes = this.data.options.preserveTimes,
+        dry                 = grunt.option('no-write'),
+        host                = this.data.options.host || 'localhost',
+        user                = this.data.options.user || 'getGitUser', // TODO system username or nothing?
+        remoteBase          = this.data.options.remoteBase || '~',
+        verbose             = grunt.option('verbose'),
+        preserveTimes       = this.data.options.preserveTimes,
         preservePermissions = this.data.options.preservePermissions || true,
-        compression = this.data.options.compression || true,
-        recursive = this.data.options.recursive || true,
-        additionalOptions = this.data.options.additionalOptions || '';
+        compression         = this.data.options.compression || true,
+        recursive           = this.data.options.recursive || true,
+        additionalOptions   = this.data.options.additionalOptions || '';
     
     // setup the cmd
     var command = ['rsync'];
@@ -69,7 +69,7 @@ module.exports = function (grunt) {
     command.push(grunt.file.expand(src).join(' '));
     
     // destination to copy
-    command.push(user+'@' + host + ':' + path);
+    command.push(user+'@' + host + ':' + remoteBase);
 
     command = command.join(' ');
 

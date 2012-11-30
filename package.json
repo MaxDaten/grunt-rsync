@@ -28,12 +28,12 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "grunt": "~0.3.16"
+    "grunt": "~0.3.17"
   },
   "devDependencies": {
-    "grunt": "~0.3.16",
+    "grunt": "~0.3.17",
     "grunt-bump": "*",
     "grunt-beautify": "*"
   },
-  "keywords": ["gruntplugin", "rsync", "copy"]
+  "keywords": ["gruntplugin", "rsync", "copy", "remote", "scp"]
 }
