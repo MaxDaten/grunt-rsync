@@ -14,7 +14,7 @@ Inside your `grunt.js` file add :
 grunt.loadNpmTasks('grunt-rsync');
 ```
 
-and a task named `scp` (see Configuration)!
+and a task named `rsync` (see Configuration)!
 
 ## Configuration
 
@@ -23,7 +23,7 @@ Add a configuration like this:
 ```javascript
 grunt.initConfig({
   ...
-  scp: {
+  rsync: {
         deploy: {
           src: 'dist/',
           options: {
@@ -42,10 +42,10 @@ This will transfer the *content* of the `dist` directory (relative to the curren
 
 *Warning: Files on the remote machine will be overridden*
 
-### File option: `src`
-- `src`: defines the files and directories to transfer from local to remote machine
+### File option: `files`
+- `files`: defines the files and directories to transfer from local to remote machine
 
-### scp options: `options`
+### rsync options: `options`
 
 - `host`: the hostname or ip (ip4/ip6). *Default: `localhost`*
 - `port`: the port of the ssh server on the host. *Default: `22`*
@@ -55,28 +55,25 @@ This will transfer the *content* of the `dist` directory (relative to the curren
 #### Config Examples
 
 ```javascript
-scp: {
+rsync: {
   deploy: {
     options: {
-      user: 'bob',
+      user: 'jdoe',
       host: 'google.com',
       port: 500
     },
-    files: {}
+    files: 'a/b/c'
   }
 }
 ```
 
 ## Release History
   
-  - added custom scp implementation with exec for higher options flexibility
-
 ## License
-Copyright (c) 2012 Andrew Jones
+Copyright (c) 2012 Jan-Philip Loos
 Licensed under the MIT license.
 
 ## TODO
-
   - update README.md
   - unit-tests
 
