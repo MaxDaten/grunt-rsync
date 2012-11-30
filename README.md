@@ -6,7 +6,7 @@ Copy files to a (remote) machine running an SSH daemon with 'rsync'.
 
 *`rsync` has to be installed on the local and remote system. `rsync` must be able to connect to the host without password (e.g. public key authentication)*
 
-Install with: `npm install grunt-rsyc`
+Install with: `npm install grunt-rsync`
 
 Inside your `grunt.js` file add :
 
