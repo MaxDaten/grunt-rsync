@@ -57,7 +57,7 @@ module.exports = function (grunt) {
         // TODO system username or nothing?
         remoteBase = this.data.options.remoteBase || '~',
         verbose = grunt.option('verbose'),
-        preserveTimes = this.data.options.preserveTimes,
+        preserveTimes = this.data.options.preserveTimes || false,
         preservePermissions = this.data.options.preservePermissions || true,
         compression = this.data.options.compression || true,
         recursive = this.data.options.recursive || true,
