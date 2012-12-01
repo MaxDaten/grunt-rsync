@@ -2,6 +2,8 @@
 
 Copy files to a (remote) machine running an SSH daemon with 'rsync'.
 
+See also: https://github.com/jedrichards/grunt-rsync
+
 ## Getting Started
 
 *`rsync` has to be installed on the local and remote system. `rsync` must be able to connect to the host without password (e.g. public key authentication)*
