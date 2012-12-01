@@ -97,7 +97,7 @@ selects all jpg-images from `images` and `img` directories in `dist` to remote `
 - `port`: the port of the ssh server on the host. *Default: `22`*
 - `user`: the user name on the remote to log in with.
 - `remoteBase`: the path from root (defined by the ssh server) to the directory to place the content in.  *Default: `~`*
-- `preserveTimes`: keeps the origin timestamp. *Default: `true`*
+- `preserveTimes`: keeps the origin timestamp. *Default: `false`*
 - `preservePermissions`: keeps the rights. *Default: `true`*
 - `compression`: transfer with compression. *Default: `true`*
 - `recursive`: transfer the source directory recursivly *Default: `true`*
