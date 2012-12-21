@@ -83,5 +83,15 @@ exports.rsync = {
 
     test.deepEqual(fileMap, files);
     test.done();
+  },
+  'Helper#createFileMap-with multiple element array': function (test) {
+    'use strict';
+    test.expect(1);
+
+    var files = ['hh/*.txt', 'a/b/c/abc.txt'];
+    var fileMap = grunt.helper('createFileMap', files);
+
+    test.deepEqual(fileMap, {'' : ['hh/*.txt', 'a/b/c/abc.txt']});
+    test.done();
   }
 };

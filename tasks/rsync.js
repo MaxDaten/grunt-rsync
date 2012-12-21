@@ -21,29 +21,82 @@ module.exports = function (grunt) {
     }
   }
 
+  function ExitHandler(num, done) {
+    this.numOfProcesses = num;
+    this.done = done;
+    this.exitCallback = function(processName) {
+      this.numOfProcesses--;
+        
+      if (this.numOfProcesses === 0) {
+        grunt.log.writeln('all processes done');
+        done(true);
+      } else {
+        grunt.log.writeln('process done: ' + processName);
+      }
+    };
+    this.abort = function(processName){
+      grunt.log.writeln('abort by: ' + processName);
+      done(false);
+    };
+  }
 
-  function doRsync(cmd, user, host, remoteBase, target, files) {
-    var exec = require('child_process').exec,
+// stolen from: http://stackoverflow.com/a/336868/605745
+  function truncate (fullStr, strLen, separator) {
+    if (fullStr.length <= strLen) {return fullStr;}
+
+    separator = separator || '...';
+
+    var sepLen = separator.length,
+        charsToShow = strLen - sepLen,
+        frontChars = Math.ceil(charsToShow/2),
+        backChars = Math.floor(charsToShow/2);
+
+    return fullStr.substr(0, frontChars) +
+           separator +
+           fullStr.substr(fullStr.length - backChars);
+  }
+
+
+  function doRsync(cmd, user, host, remoteBase, target, files, exitHandler) {
+    var spawn = require('child_process').spawn,
         src = grunt.file.expand(files[target]),
         dest = target;
 
-    cmd.push(src.join(' '));
+    // flatten the src list
+    cmd.push.apply(cmd, src);
 
     // destination to copy
     cmd.push(user + '@' + host + ':' + remoteBase + '/' + target); // TODO: normalize
-    cmd = cmd.join(' ');
 
-    grunt.log.writeln( 'executing: ' + cmd );
+    var cmdLine = 'rsync ' + cmd.join(' ');
+    grunt.log.writeln( 'executing: >' + cmdLine + '<' );
     grunt.log.write( 'starting transfer... ' );
 
-    exec(cmd, rsyncCallback);
-    grunt.log.ok();
+    var rsync = spawn('rsync', cmd);
+
+    rsync.stdout.on('data', function (data) {
+      grunt.log.writeln('out: ' + data);
+    });
+
+    rsync.stderr.on('data', function (data) {
+      grunt.log.writeln('err: ' + data);
+    });
+
+    rsync.on('exit', function (code) {
+      var procName = rsync.pid + ':: ' + truncate(cmdLine, 100);
+      if (code === 0) {
+        grunt.log.ok();
+        exitHandler.exitCallback(procName);
+      } else {
+        grunt.fail.fatal('err: ' + code);
+        exitHandler.abort(procName);
+      }
+    });
   }
 
   grunt.util = grunt.util || grunt.utils;
 
   grunt.registerMultiTask('rsync', 'Copy files to a (remote) machine with rsync.', function () {
-
     var done = this.async(),
         files = grunt.helper('createFileMap', this.data.files),
         
@@ -61,10 +114,10 @@ module.exports = function (grunt) {
         preservePermissions = this.data.options.preservePermissions || true,
         compression = this.data.options.compression || true,
         recursive = this.data.options.recursive || true,
-        additionalOptions = this.data.options.additionalOptions || '';
+        additionalOptions = this.data.options.additionalOptions || undefined;
 
     // setup the cmd
-    var command = ['rsync'];
+    var command = [];
 
     // these flags must be set before the src/dest args
     if (recursive) {
@@ -91,23 +144,28 @@ module.exports = function (grunt) {
       command.push('--dry-run');
     }
 
-    command.push(additionalOptions);
+    if (additionalOptions !== undefined) {
+      command.push(additionalOptions);
+    }
+
+    // create process exit handler
+    var exitHandler = new ExitHandler(files.length);
 
     // from this line on, the order of the args is relevant!
     // files to copy
     // save command before execute files-map wise
     for (var target in files) {
-      // copy command
-      doRsync(command.slice(), user, host, remoteBase, target, files);
+      // slice to copy array
+      doRsync(command.slice(), user, host, remoteBase, target, files, exitHandler);
     } // for in files
-    done(true);
 
   });
 
   grunt.registerHelper('createFileMap', function (files) {
     var map = {};
-
-    files = files instanceof Object ? files : {
+    
+    files = files instanceof Object &&
+          !(files instanceof Array) ? files : {
       '': files
     };
 
