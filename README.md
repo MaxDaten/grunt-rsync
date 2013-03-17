@@ -27,7 +27,7 @@ grunt.initConfig({
   ...
   rsync: {
         deploy: {
-          files: 'dist/',
+          src: 'dist/',
           options: {
             host      : "example.com",
             port      : "1023",
@@ -40,12 +40,12 @@ grunt.initConfig({
 });
 ```
 
-This will transfer the *content* of the `dist` directory (relative to the current directory) to the host directory `~/production` (relative to the user home) on the host `example.com:1023` logged in with `jdoe`.
+This will transfer the *content* of the `dist/` directory (relative to the current directory) to the host directory `~/production` (relative to the user home) on the host `example.com:1023` logged in with `jdoe`.
 
-*Warning: Files on the remote machine will be overridden*
+:exclamation: Files on the remote machine will be overridden
 
 ### File option: `files`
-- `files`: defines the files and directories to transfer from local to remote machine. `files` can be an String (supports grunts globbing) or a map of `<String>:<String>` or `<String>:[<String>]`.
+This option follows the grunt-0.4 file option specs (https://github.com/gruntjs/grunt/wiki/Configuring-tasks#files). For more dedicated description see the following examples:
 
 #### Examples:
 
@@ -54,7 +54,7 @@ This will transfer the *content* of the `dist` directory (relative to the curren
 ```javascript
 rsync: {
   deploy: {
-    files: 'dist/**/*.jpg' // globbing
+    src: 'dist/**/*.jpg' // globbing
     ...
   }  
 }
@@ -106,11 +106,11 @@ selects all jpg-images from `images` and `img` directories in `dist` to remote `
 - `additionalOptions`: rsync commandline arguments (see `man rsync`) *Default: `''`*
 
 ## Release History
-0.1.1 - initial release to github and npm
+- 0.2.0 : grunt 0.4 support and major changes
+  - multithreaded async rsync for every file entry in file map
+  - fixed rsync sysout capture
+- 0.1.1 : initial release to github and npm
   
 ## License
-Copyright (c) 2012 Jan-Philip Loos
+Copyright (c) 2012-2013 Jan-Philip Loos
 Licensed under the MIT license.
-
-## TODO
-

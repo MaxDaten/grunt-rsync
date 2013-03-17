@@ -27,13 +27,16 @@
   "scripts": {
     "test": "grunt test"
   },
-  "dependencies": {
+  "dependencies": {},
+  "peerDependencies": {
     "grunt": "~0.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-bump": "*",
-    "grunt-beautify": "*"
+    "grunt-bump": "~0.0.2",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-nodeunit": "~0.1.1",
+    "grunt-contrib-jshint": "~0.3.0"
   },
   "keywords": [
     "gruntplugin",

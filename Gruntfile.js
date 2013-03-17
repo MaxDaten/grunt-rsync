@@ -4,21 +4,12 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:package.json>',
-    test: {
-      files: ['test/**/*.js']
-    },
-    lint: {
-      files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js']
-    },
-    beautify: {
-      files: '<config:lint.files>'
-    },
-    watch: {
-      files: '<config:lint.files>',
-      tasks: 'default'
+    pkg: grunt.file.readJSON('package.json'),
+    nodeunit: {
+      all: ['test/*_test.js']
     },
     jshint: {
+      files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js'],
       options: {
         curly: true,
         eqeqeq: true,
@@ -36,10 +27,14 @@ module.exports = function (grunt) {
         exports: true
       }
     },
+    watch: {
+      files: '<%= jshint.files %>',
+      tasks: 'default'
+    },
 
     rsync: {
       deploy: {
-        files: ['test/test-files/one.txt', 'test/test-files/ddd/xyz.txt'],
+        src: 'test/fixures/**',
         options: {
           host: "192.168.178.76",
           port: "22",
@@ -50,12 +45,13 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.loadNpmTasks('grunt-beautify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-bump');
 
   // Default task.
-  grunt.registerTask('default', 'lint test');
-
-  grunt.registerTask('tidy', 'beautify');
+  grunt.registerTask('default', ['jshint', 'test']);
+  grunt.registerTask('test', 'nodeunit');
 
 };
