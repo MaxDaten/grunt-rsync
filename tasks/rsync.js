@@ -45,7 +45,7 @@ module.exports = function (grunt) {
   grunt.registerMultiTask('rsync', 'Copy files to a (remote) machine with rsync.', function () {
 
     var done = this.async(),
-        files = grunt.helper('createFileMap', this.data.files),
+        files = createFileMap(this.data.files),
         
         
         // options
@@ -104,7 +104,7 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerHelper('createFileMap', function (files) {
+  function createFileMap(files) {
     var map = {};
 
     files = files instanceof Object ? files : {
@@ -116,5 +116,5 @@ module.exports = function (grunt) {
       map[target] = files[target];
     }
     return map;
-  });
+  }
 };
