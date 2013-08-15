@@ -25,6 +25,9 @@ module.exports = function (grunt) {
         src = grunt.file.expand(files[target]),
         dest = target;
 
+    if(src.length === 0){
+      grunt.fail.warn('There are no files to transfer.');
+    }
     cmd.push(src.join(' '));
 
     // destination to copy
