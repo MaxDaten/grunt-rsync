@@ -10,14 +10,13 @@ module.exports = function (grunt) {
   'use strict';
 
   function rsyncCallback(error, stdout, stderr) {
-    grunt.log.writeln('stdout: ' + stdout);
-    grunt.log.writeln('stderr: ' + stderr);
-
-    grunt.log.writeln('err: ' + error);
-
+    grunt.verbose.write(stdout);
     if (error) {
       //done(false);
+      grunt.verbose.write(stderr)
       grunt.fail.fatal(error);
+    }else{
+      grunt.log.ok('Files transferred successfully.');
     }
   }
 
@@ -33,8 +32,8 @@ module.exports = function (grunt) {
     cmd.push(user + '@' + host + ':' + remoteBase + '/' + target); // TODO: normalize
     cmd = cmd.join(' ');
 
-    grunt.log.writeln( 'executing: ' + cmd );
-    grunt.log.write( 'starting transfer... ' );
+    grunt.log.writeln( 'Executing: ' + cmd );
+    grunt.log.writeln( 'Starting transfer... ' );
 
     exec(cmd, rsyncCallback);
     grunt.log.ok();
