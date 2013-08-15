@@ -24,7 +24,6 @@ module.exports = function (grunt) {
     var exec = require('child_process').exec,
         src = grunt.file.expand(files[target]),
         dest = target;
-
     if(src.length === 0){
       grunt.fail.warn('There are no files to transfer.');
     }
@@ -32,6 +31,10 @@ module.exports = function (grunt) {
 
     // destination to copy
     cmd.push((options.user === '' ? '' :  options.user + '@') + options.host + ':' + options.remoteBase + '/' + target); // TODO: normalize
+    if(options.deleteAfter && !options.dry){
+      cmd.push('&& rm -rf ' + src.join(' '));
+    }
+    cmd.push();
     cmd = cmd.join(' ');
 
     grunt.log.writeln( 'Executing: ' + cmd );
@@ -59,6 +62,8 @@ module.exports = function (grunt) {
         options.preservePermissions = options.preservePermissions || true,
         options.compression = options.compression || true,
         options.recursive = options.recursive || true,
+        options.clean = options.clean || false,
+        options.deleteAfter = options.deleteAfter || false,
         options.additionalOptions = options.additionalOptions || '';
 
     // setup the cmd
@@ -79,6 +84,11 @@ module.exports = function (grunt) {
 
     if (options.preservePermissions) {
       command.push('-p');
+    }
+
+    if(options.clean){
+      command.push('--delete');
+      command.push('--delete-after');
     }
 
     if (options.compression) {
