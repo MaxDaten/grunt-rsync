@@ -12,7 +12,6 @@ module.exports = function (grunt) {
   function rsyncCallback(error, stdout, stderr) {
     grunt.verbose.write(stdout);
     if (error) {
-      //done(false);
       grunt.verbose.write(stderr)
       grunt.fail.fatal(error);
     }else{
@@ -36,7 +35,6 @@ module.exports = function (grunt) {
     grunt.log.writeln( 'Starting transfer... ' );
 
     exec(cmd, rsyncCallback);
-    grunt.log.ok();
   }
 
   grunt.util = grunt.util || grunt.utils;
