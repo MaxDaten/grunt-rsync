@@ -12,7 +12,7 @@ module.exports = function (grunt) {
   function rsyncCallback(error, stdout, stderr) {
     grunt.verbose.write(stdout);
     if (error) {
-      grunt.verbose.write(stderr)
+      grunt.verbose.write(stderr);
       grunt.fail.fatal(error);
     }else{
       grunt.log.ok('Files transferred successfully.');
@@ -43,12 +43,10 @@ module.exports = function (grunt) {
     exec(cmd, rsyncCallback);
   }
 
-  grunt.util = grunt.util || grunt.utils;
-
   grunt.registerMultiTask('rsync', 'Copy files to a (remote) machine with rsync.', function () {
 
     var done = this.async(),
-        files = createFileMap(this.data.files);
+        files = this.createFileMap(this.data.files);
         var options = this.data.options;
         // options
         options.dry = grunt.option('no-write'),
@@ -111,7 +109,7 @@ module.exports = function (grunt) {
 
   });
 
-  function createFileMap(files) {
+  this.createFileMap = function(files) {
     var map = {};
 
     files = files instanceof Object ? files : {
@@ -123,5 +121,5 @@ module.exports = function (grunt) {
       map[target] = files[target];
     }
     return map;
-  }
+  };
 };

@@ -1,5 +1,5 @@
 var grunt = require('grunt'),
-    rsync = require('../tasks/rsync');
+    rsync = new (require('../tasks/rsync'))(grunt);
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -35,7 +35,7 @@ exports.rsync = {
     test.expect(1);
 
     var files = 'a/b/c';
-    var fileMap = grunt.helper('createFileMap', files);
+    var fileMap = rsync.createFileMap(files);
 
     test.deepEqual(fileMap, {
       '': 'a/b/c'
@@ -49,7 +49,7 @@ exports.rsync = {
     var files = {
       'cde/f': 'a/b/c'
     };
-    var fileMap = grunt.helper('createFileMap', files);
+    var fileMap = rsync.createFileMap(files);
 
     test.deepEqual(fileMap, {
       'cde/f': 'a/b/c'
@@ -63,7 +63,7 @@ exports.rsync = {
     var files = {
       'cde/f': ['a/b/c', 'e/**/*.txt']
     };
-    var fileMap = grunt.helper('createFileMap', files);
+    var fileMap = rsync.createFileMap(files);
 
     test.deepEqual(fileMap, {
       'cde/f': ['a/b/c', 'e/**/*.txt']
@@ -79,7 +79,7 @@ exports.rsync = {
       'ddd/': 'e/f',
       'rrr/': ['hh/*.txt']
     };
-    var fileMap = grunt.helper('createFileMap', files);
+    var fileMap = rsync.createFileMap(files);
 
     test.deepEqual(fileMap, files);
     test.done();
