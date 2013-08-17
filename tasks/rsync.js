@@ -8,6 +8,7 @@
 
 module.exports = function (grunt) {
   'use strict';
+  var _this = this;
 
   function rsyncCallback(error, stdout, stderr) {
     grunt.verbose.write(stdout);
@@ -46,7 +47,7 @@ module.exports = function (grunt) {
   grunt.registerMultiTask('rsync', 'Copy files to a (remote) machine with rsync.', function () {
 
     var done = this.async(),
-        files = this.createFileMap(this.data.files);
+        files = _this.createFileMap(this.data.files);
         var options = this.data.options;
         // options
         options.dry = grunt.option('no-write'),

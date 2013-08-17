@@ -1,7 +1,7 @@
 {
   "name": "grunt-rsync-2",
   "description": "Copy files to a (remote) machine with rsync. supports maps with target:source entries",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/maxdaten/grunt-rsync",
   "author": {
     "name": "Jan-Philip Loos",
@@ -34,7 +34,8 @@
     "grunt": "~0.4",
     "grunt-bump": "*",
     "grunt-contrib-jshint": "*",
-    "grunt-contrib-nodeunit": "*"
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib": "~0.7.0"
   },
   "keywords": [
     "gruntplugin",
