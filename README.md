@@ -106,7 +106,11 @@ selects all jpg-images from `images` and `img` directories in `dist` to remote `
 - `additionalOptions`: rsync commandline arguments (see `man rsync`) *Default: `''`*
 
 ## Release History
+0.1.2 - grunt-4.0 support (big thanks to [cmaddalozzo](https://github.com/cmaddalozzo))
 0.1.1 - initial release to github and npm
+
+## Contribution
+- [cmaddalozzo](https://github.com/cmaddalozzo)
   
 ## License
 Copyright (c) 2012 Jan-Philip Loos
