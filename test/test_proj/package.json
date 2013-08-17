@@ -1,0 +1,15 @@
+{
+  "name": "test_proj",
+  "version": "0.0.0",
+  "description": "not-productive test project for grunt-rsync-2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4",
+    "grunt-rsync-2": "latest"
+  }
+}
