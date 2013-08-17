@@ -8,17 +8,15 @@ module.exports = function (grunt) {
     test: {
       files: ['test/**/*.js']
     },
-    lint: {
-      files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js']
-    },
-    beautify: {
-      files: '<config:lint.files>'
+    nodeunit: {
+      all: ['test/*_test.js']
     },
     watch: {
       files: '<config:lint.files>',
       tasks: 'default'
     },
     jshint: {
+      all: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js'],
       options: {
         curly: true,
         eqeqeq: true,
@@ -39,12 +37,11 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.loadNpmTasks('grunt-beautify');
   grunt.loadNpmTasks('grunt-bump');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
   // Default task.
-  grunt.registerTask('default', 'lint test');
-
-  grunt.registerTask('tidy', 'beautify');
+  grunt.registerTask('default', ['jshint', 'nodeunit:all']);
 
 };

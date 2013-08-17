@@ -22,18 +22,19 @@
   ],
   "main": "lib/grunt-rsync",
   "engines": {
-    "node": ">= 0.6.0"
+    "node": ">= 0.8.0"
   },
   "scripts": {
     "test": "grunt test"
   },
   "dependencies": {
-    "grunt": "~0.3.17"
+    "grunt": "~0.4"
   },
   "devDependencies": {
-    "grunt": "~0.3.17",
+    "grunt": "~0.4",
     "grunt-bump": "*",
-    "grunt-beautify": "*"
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-nodeunit": "*"
   },
   "keywords": [
     "gruntplugin",
