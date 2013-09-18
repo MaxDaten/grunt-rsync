@@ -10,18 +10,20 @@ module.exports = function (grunt) {
   'use strict';
   var _this = this;
 
-  function rsyncCallback(error, stdout, stderr) {
+  function rsyncCallback(error, stdout, stderr, done) {
     grunt.verbose.write(stdout);
     if (error) {
       grunt.verbose.write(stderr);
       grunt.fail.fatal(error);
+			done(false);
     }else{
       grunt.log.ok('Files transferred successfully.');
-    }
+			done();
+		}
   }
 
 
-  function doRsync(cmd, options, target, files) {
+  function doRsync(cmd, options, target, files, done) {
     var exec = require('child_process').exec,
         src = grunt.file.expand(files[target]),
         dest = target;
@@ -41,7 +43,9 @@ module.exports = function (grunt) {
     grunt.log.writeln( 'Executing: ' + cmd );
     grunt.log.writeln( 'Starting transfer... ' );
 
-    exec(cmd, rsyncCallback);
+    exec(cmd, function(error, stdout, stderr) {
+			rsyncCallback(error, stdout, stderr, done);
+		});
   }
 
   grunt.registerMultiTask('rsync', 'Copy files to a (remote) machine with rsync.', function () {
@@ -105,7 +109,7 @@ module.exports = function (grunt) {
     // save command before execute files-map wise
     for (var target in files) {
       // copy command
-      doRsync(command.slice(), options, target, files);
+      doRsync(command.slice(), options, target, files, done);
     } // for in files
 
   });
