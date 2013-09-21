@@ -111,6 +111,7 @@ selects all jpg-images from `images` and `img` directories in `dist` to remote `
 
 ## Contribution
 - [cmaddalozzo](https://github.com/cmaddalozzo)
+- [bigmomma](https://github.com/bigmomma)
   
 ## License
 Copyright (c) 2012 Jan-Philip Loos
