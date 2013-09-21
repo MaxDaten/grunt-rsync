@@ -6,7 +6,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     rsync: {
       template: {
-        files: '../test-files/',
+        files: { 'test-files' : '../test-files/'
+               , 'other-dir' :  '../test-files/ddd/' },
         options: {
           host: '192.168.178.200',
           user: 'jloos',

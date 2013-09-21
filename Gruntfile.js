@@ -16,7 +16,7 @@ module.exports = function (grunt) {
       tasks: 'default'
     },
     jshint: {
-      all: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js'],
+      all: ['grunt.js', 'tasks/**/*.js'],
       options: {
         curly: true,
         eqeqeq: true,
@@ -28,6 +28,7 @@ module.exports = function (grunt) {
         undef: true,
         boss: true,
         eqnull: true,
+        laxcomma: true,
         node: true
       },
       globals: {
