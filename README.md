@@ -101,6 +101,7 @@ selects all jpg-images from `images` and `img` directories in `dist` to remote `
 - `remoteBase`: the path from root (defined by the ssh server) to the directory to place the content in.  *Default: `~`*
 - `preserveTimes`: keeps the origin timestamp. *Default: `false`*
 - `preservePermissions`: keeps the rights. *Default: `true`*
+- `clean`: deletes all files in target that are not in source (internally the rsync options `--delete` and `--delete-after`)
 - `compression`: transfer with compression. *Default: `true`*
 - `recursive`: transfer the source directory recursivly *Default: `true`*
 - `additionalOptions`: rsync commandline arguments (see `man rsync`) *Default: `''`*
