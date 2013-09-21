@@ -47,6 +47,7 @@ This will transfer the *content* of the `dist` directory (relative to the curren
 ### File option: `files`
 - `files`: defines the files and directories to transfer from local to remote machine. `files` can be an String (supports grunts globbing) or a map of `<String>:<String>` or `<String>:[<String>]`.
 
+
 #### Examples:
 
 ##### Simple file-descriptor:
