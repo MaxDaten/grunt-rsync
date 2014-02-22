@@ -120,7 +120,7 @@ module.exports = function (grunt) {
     // files to copy
     // save command before execute files-map wise
     var allSuccessful = true;
-    var runningChilds = files.length;
+    var runningChilds = Object.keys(files).length;
     var doneCallback = function (success) {
       runningChilds -= 1;
       if (runningChilds === 0) {
