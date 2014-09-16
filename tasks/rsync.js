@@ -113,7 +113,11 @@ module.exports = function (grunt) {
     }
 
     if (options.additionalOptions) {
-      args.push(options.additionalOptions);
+      if (Array.isArray(options.additionalOptions)) {
+        args.concat(options.additionalOptions);
+      } else {
+        args.push(options.additionalOptions);
+      }
     }
 
     // from this line on, the order of the args is relevant!
