@@ -114,7 +114,7 @@ module.exports = function (grunt) {
 
     if (options.additionalOptions) {
       if (Array.isArray(options.additionalOptions)) {
-        args.concat(options.additionalOptions);
+        args = args.concat(options.additionalOptions);
       } else {
         args.push(options.additionalOptions);
       }
