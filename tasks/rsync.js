@@ -72,9 +72,9 @@ module.exports = function (grunt) {
         options.remoteBase = options.remoteBase || '~',
         options.verbose = grunt.option('verbose'),
         options.preserveTimes = options.preserveTimes || false,
-        options.preservePermissions = options.preservePermissions || true,
-        options.compression = options.compression || true,
-        options.recursive = options.recursive || true,
+        options.preservePermissions = options.preservePermissions === undefined ? true : options.preservePermissions,
+        options.compression = options.compression === undefined ? true : options.compression,
+        options.recursive = options.recursive == undefined ? true : options.recursive,
         options.clean = options.clean || false,
         options.deleteAfter = options.deleteAfter || false;
 
@@ -113,7 +113,11 @@ module.exports = function (grunt) {
     }
 
     if (options.additionalOptions) {
-      args.push(options.additionalOptions);
+      if (Array.isArray(options.additionalOptions)) {
+        args = args.concat(options.additionalOptions);
+      } else {
+        args.push(options.additionalOptions);
+      }
     }
 
     // from this line on, the order of the args is relevant!
