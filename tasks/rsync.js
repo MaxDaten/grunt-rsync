@@ -72,9 +72,9 @@ module.exports = function (grunt) {
         options.remoteBase = options.remoteBase || '~',
         options.verbose = grunt.option('verbose'),
         options.preserveTimes = options.preserveTimes || false,
-        options.preservePermissions = !(!options.preservePermissions || false),
-        options.compression = !(!options.compression || false),
-        options.recursive = !(!options.recursive || false),
+        options.preservePermissions = options.preservePermissions === undefined ? true : options.preservePermissions,
+        options.compression = options.compression === undefined ? true : options.compression,
+        options.recursive = options.recursive == undefined ? true : options.recursive,
         options.clean = options.clean || false,
         options.deleteAfter = options.deleteAfter || false;
 
