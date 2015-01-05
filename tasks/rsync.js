@@ -111,6 +111,10 @@ module.exports = function (grunt) {
     if (options.dry) {
       args.push('--dry-run');
     }
+    
+    if (options.port) {
+      args.push('-e',"ssh -p"+options.port);
+    }
 
     if (options.additionalOptions) {
       args.push(options.additionalOptions);
